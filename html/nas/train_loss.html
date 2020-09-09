@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>第一个 ECharts 实例</title>
+    <!-- 引入 echarts.js 以下两种方式都可以 -->
+    <script src="echarts.min.js"></script>
+    <!-- <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script> -->
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width:600px;height:400px;"></div>
+    <script type="text/javascript">
+
+        var myChart ;
+        var loss_data = [];
+        var index_data = [];
+        var trainloss_cls = [];
+        var trainloss_reg = [];
+        var trainloss_total = [];
+
+        function buildChart(width, height){
+            // 基于准备好的dom，初始化echarts实例
+			document.getElementById('main').style.height = height +'px';
+            document.getElementById('main').style.width  = width + 'px'; 
+			
+			if (typeof(myChart)!="undefined"){ //清除旧实例
+				myChart.clear();
+				myChart.dispose();	
+			}
+            // 基于准备好的dom，初始化echarts实例
+            myChart = echarts.init(document.getElementById('main'));
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: 'train_loss'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['loss_cls', 'loss_reg', 'loss_total'],
+                    show: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data:index_data
+                    //data: data_x=['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+                },
+                yAxis: {
+                    type: 'value',
+                },
+                series: [
+                    {
+                      name:'loss_cls',
+                      //data:trainloss_cls=[0.4608, 0.3960, 0.3748, 0.3514, 0.3462, 0.3373, 0.3242, 0.3250, 0.2717, 0.2553, 0.2563, 0.2525],
+                      data:loss_data,
+                      type:'line',
+                    },
+                    {
+                      name:'loss_reg',
+                      //data:trainloss_reg=[0.227, 0.2039, 0.1944, 0.1881, 0.1818, 0.1790, 0.1699, 0.1712, 0.1547, 0.1397, 0.1462, 0.1375],
+                      data:loss_data,
+                      type:'line',
+                    },
+                    {
+                    name:'loss_total',
+                    //data: trainloss_total=[0.6878, 0.5999, 0.5692, 0.5395, 0.5281, 0.5163, 0.4942, 0.4962, 0.4264, 0.3950, 0.4025, 0.3900],
+                    data:loss_data,
+                    type: 'line',
+                }]
+            };
+            //window.alert(option.series[0]["data"])
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+
+            //500ms 定时器，更新数据
+            setInterval(function () {
+                myChart.setOption({
+                    xAxis:{
+                        data: index_data
+                    },
+                    series: [{
+                        data: trainloss_cls
+                    },
+                    {
+                        data: trainloss_reg
+                    },
+                    {
+                        data: trainloss_total
+                    }]
+                });
+                }, 500);
+        }
+
+    </script>
+</body>
+</html>

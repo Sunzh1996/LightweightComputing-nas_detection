@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>第一个 ECharts 实例</title>
+    <!-- 引入 echarts.js 以下两种方式都可以 -->
+    <script src="echarts.min.js"></script>
+    <!-- <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script> -->
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width:600px;height:400px;"></div>
+    <script type="text/javascript">
+
+        var myChart ;
+        var loss_data = [];
+        var index_data = [];
+        var searchloss_cls = [];
+        var searchloss_reg = [];
+        var searchloss_total = [];
+
+
+        function buildChart(width, height){
+            // 基于准备好的dom，初始化echarts实例
+			document.getElementById('main').style.height = height +'px';
+            document.getElementById('main').style.width  = width + 'px'; 
+			
+			if (typeof(myChart)!="undefined"){ //清除旧实例
+				myChart.clear();
+				myChart.dispose();	
+			}
+            // 基于准备好的dom，初始化echarts实例
+            myChart = echarts.init(document.getElementById('main'));
+            // 指定图表的配置项和数据
+            /*
+            var  option = {
+                title: {
+                     text: 'loss'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['loss_cls', 'loss_reg', 'loss_total'],
+                    //show: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: data_x=['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14']
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                      name:'loss_cls',
+                      data:loss_cls=[0.8169, 0.7239, 0.6695, 0.6271, 0.6031, 0.5830, 0.5640, 0.5612, 0.4516, 0.4398, 0.4404, 0.4351, 0.4353, 0.4272],
+                      type:'line',
+                    },
+                    {
+                      name:'loss_reg',
+                      data:loss_reg=[0.3439, 0.3044, 0.2833, 0.2699, 0.2584, 0.2548, 0.2473, 0.2467, 0.2059, 0.1989, 0.1997, 0.1964, 0.2001, 0.1928],
+                      type:'line',
+                    },
+                    {
+                    name:'loss_total',
+                    data: loss_total=[1.1609, 1.0283, 0.9529, 0.8970, 0.8615, 0.8377, 0.8113, 0.8079, 0.6575, 0.6387, 0.6401, 0.6314, 0.6353, 0.6199],
+                    type: 'line',
+                    //smooth: true
+                    }]
+            };*/
+
+
+            var option = {
+                title: {
+                    text: 'search_loss'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['searchloss_cls', 'searchloss_reg', 'searchloss_total'],
+                    show: true
+                },
+                xAxis: {
+                    data: index_data
+                },
+                yAxis: {
+                    // type: 'value',
+                    // boundaryGap: [0, '100%'],
+                    // splitLine: {
+                    //     show: false
+                    // }
+                },
+                series: [{
+                    name: 'searchloss_cls',
+                    type: 'line',
+                    data: loss_data
+                },
+                    {
+                        name: 'searchloss_reg',
+                        type: 'line',
+                        data: loss_data
+                    },
+                    {
+                        name: 'searchloss_total',
+                        type: 'line',
+                        data: loss_data
+                    }
+                ]
+            };
+
+
+            //window.alert(option.series[0]["data"])
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+
+            //500ms 定时器，更新数据
+            setInterval(function () {
+                myChart.setOption({
+                    xAxis:{
+                        data: index_data
+                        //data:data_x
+                    },
+                    series: [{
+                        data: searchloss_cls
+                    },
+                        {
+                        data: searchloss_reg
+                    },
+                    {
+                        data: searchloss_total
+                    }
+                    ]
+                });
+                },500);
+
+        }
+
+     
+    </script>
+</body>
+</html>

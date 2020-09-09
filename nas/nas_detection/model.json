@@ -1,0 +1,1009 @@
+{
+    "config": {
+        "layers": [
+            {
+                "name": "layer1.0.conv2",
+                "config": {
+                    "layer_id": "2537708882016",
+                    "weight": "(64, 64, 3, 3)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537655720928/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "fc",
+                "config": {
+                    "bias": "(1000)",
+                    "layer_id": "None"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537636747696/View"
+                        ],
+                        [
+                            "fc1"
+                        ]
+                    ]
+                ],
+                "class_name": "Addmm"
+            },
+            {
+                "name": "layer4.0.downsample.0",
+                "config": {
+                    "layer_id": "2537708959280",
+                    "weight": "(512, 256, 1, 1)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537636827768/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "2537710246376/Threshold1",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537710167488/Add0"
+                        ]
+                    ]
+                ],
+                "class_name": "Threshold1"
+            },
+            {
+                "name": "layer2.0.bn1",
+                "config": {
+                    "bias": "(128)",
+                    "weight": "(128)",
+                    "layer_id": "2537708800488"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer2.0.conv1"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "2537636827768/Threshold1",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537636827824/Add0"
+                        ]
+                    ]
+                ],
+                "class_name": "Threshold1"
+            },
+            {
+                "name": "layer1.0.bn1",
+                "config": {
+                    "bias": "(64)",
+                    "weight": "(64)",
+                    "layer_id": "2537708883808"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer1.0.conv1"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "2537710244416/Threshold1",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537710245928/Add0"
+                        ]
+                    ]
+                ],
+                "class_name": "Threshold1"
+            },
+            {
+                "name": "2537636827824/Add0",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer3.1.bn2"
+                        ],
+                        [
+                            "2537636829224/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Add0"
+            },
+            {
+                "name": "2537636759032/Threshold1",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537636932856/Add0"
+                        ]
+                    ]
+                ],
+                "class_name": "Threshold1"
+            },
+            {
+                "name": "layer2.1.bn2",
+                "config": {
+                    "bias": "(128)",
+                    "weight": "(128)",
+                    "layer_id": "2537708972016"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer2.1.conv2"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "layer4.0.bn2",
+                "config": {
+                    "bias": "(512)",
+                    "weight": "(512)",
+                    "layer_id": "2537708483920"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer4.0.conv2"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "layer2.1.conv2",
+                "config": {
+                    "layer_id": "2537708971960",
+                    "weight": "(128, 128, 3, 3)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537710244864/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "layer2.0.conv1",
+                "config": {
+                    "layer_id": "2537708799424",
+                    "weight": "(128, 64, 3, 3)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537710319096/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "2537636829224/Threshold1",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537636836744/Add0"
+                        ]
+                    ]
+                ],
+                "class_name": "Threshold1"
+            },
+            {
+                "name": "2537636747696/View",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537636746296/AdaptiveAvgPool2D"
+                        ]
+                    ]
+                ],
+                "class_name": "View"
+            },
+            {
+                "name": "layer2.1.conv1",
+                "config": {
+                    "layer_id": "2537708800936",
+                    "weight": "(128, 128, 3, 3)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537710246376/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "layer1.1.bn2",
+                "config": {
+                    "bias": "(64)",
+                    "weight": "(64)",
+                    "layer_id": "2537708882744"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer1.1.conv2"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "layer2.0.downsample.0",
+                "config": {
+                    "layer_id": "2537708800040",
+                    "weight": "(128, 64, 1, 1)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537710319096/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "layer4.1.conv2",
+                "config": {
+                    "layer_id": "2537708483864",
+                    "weight": "(512, 512, 3, 3)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537636929608/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "layer4.1.bn1",
+                "config": {
+                    "bias": "(512)",
+                    "weight": "(512)",
+                    "layer_id": "2537708483976"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer4.1.conv1"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "layer4.0.bn1",
+                "config": {
+                    "bias": "(512)",
+                    "weight": "(512)",
+                    "layer_id": "2537708483752"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer4.0.conv1"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "2537636836968/Threshold1",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer3.0.bn1"
+                        ]
+                    ]
+                ],
+                "class_name": "Threshold1"
+            },
+            {
+                "name": "conv1",
+                "config": {
+                    "layer_id": "2537708878872",
+                    "weight": "(64, 3, 7, 7)"
+                },
+                "inbound_nodes": [],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "2537636719360/Threshold1",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer4.0.bn1"
+                        ]
+                    ]
+                ],
+                "class_name": "Threshold1"
+            },
+            {
+                "name": "layer1.0.bn2",
+                "config": {
+                    "bias": "(64)",
+                    "weight": "(64)",
+                    "layer_id": "2537708883136"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer1.0.conv2"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "bn1",
+                "config": {
+                    "bias": "(64)",
+                    "weight": "(64)",
+                    "layer_id": "2537340381168"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "conv1"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "layer4.1.bn2",
+                "config": {
+                    "bias": "(512)",
+                    "weight": "(512)",
+                    "layer_id": "2537708484144"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer4.1.conv2"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "2537636745848/Add0",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer4.1.bn2"
+                        ],
+                        [
+                            "2537636759032/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Add0"
+            },
+            {
+                "name": "2537710244864/Threshold1",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer2.1.bn1"
+                        ]
+                    ]
+                ],
+                "class_name": "Threshold1"
+            },
+            {
+                "name": "2537710319096/Threshold1",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537710317864/Add0"
+                        ]
+                    ]
+                ],
+                "class_name": "Threshold1"
+            },
+            {
+                "name": "layer4.1.conv1",
+                "config": {
+                    "layer_id": "2537708482912",
+                    "weight": "(512, 512, 3, 3)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537636759032/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "2537636929608/Threshold1",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer4.1.bn1"
+                        ]
+                    ]
+                ],
+                "class_name": "Threshold1"
+            },
+            {
+                "name": "layer3.0.conv1",
+                "config": {
+                    "layer_id": "2537708972464",
+                    "weight": "(256, 128, 3, 3)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537710244416/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "2537636828608/Threshold1",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer3.1.bn1"
+                        ]
+                    ]
+                ],
+                "class_name": "Threshold1"
+            },
+            {
+                "name": "2537710321056/Threshold1",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer1.1.bn1"
+                        ]
+                    ]
+                ],
+                "class_name": "Threshold1"
+            },
+            {
+                "name": "fc1",
+                "config": {
+                    "layer_id": "2537708697024",
+                    "weight": "(1000, 512)"
+                },
+                "inbound_nodes": [],
+                "class_name": "T"
+            },
+            {
+                "name": "layer2.0.conv2",
+                "config": {
+                    "layer_id": "2537708800376",
+                    "weight": "(128, 128, 3, 3)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537710166480/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "layer1.1.conv1",
+                "config": {
+                    "layer_id": "2537708881792",
+                    "weight": "(64, 64, 3, 3)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537710319936/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "layer2.0.downsample.1",
+                "config": {
+                    "bias": "(128)",
+                    "weight": "(128)",
+                    "layer_id": "2537708800264"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer2.0.downsample.0"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "2537710166480/Threshold1",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer2.0.bn1"
+                        ]
+                    ]
+                ],
+                "class_name": "Threshold1"
+            },
+            {
+                "name": "2537710245928/Add0",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer2.1.bn2"
+                        ],
+                        [
+                            "2537710246376/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Add0"
+            },
+            {
+                "name": "2537636747024/Threshold1",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537636745848/Add0"
+                        ]
+                    ]
+                ],
+                "class_name": "Threshold1"
+            },
+            {
+                "name": "2537655576616/Add0",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer1.0.bn2"
+                        ],
+                        [
+                            "2537655721880/MaxPool2DWithIndices"
+                        ]
+                    ]
+                ],
+                "class_name": "Add0"
+            },
+            {
+                "name": "2537636836744/Add0",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer3.0.bn2"
+                        ],
+                        [
+                            "layer3.0.downsample.1"
+                        ]
+                    ]
+                ],
+                "class_name": "Add0"
+            },
+            {
+                "name": "layer3.0.bn1",
+                "config": {
+                    "bias": "(256)",
+                    "weight": "(256)",
+                    "layer_id": "2537708971904"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer3.0.conv1"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "layer1.0.conv1",
+                "config": {
+                    "layer_id": "2537708883752",
+                    "weight": "(64, 64, 3, 3)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537655721880/MaxPool2DWithIndices"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "layer4.0.conv1",
+                "config": {
+                    "layer_id": "2537708483696",
+                    "weight": "(512, 256, 3, 3)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537636827768/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "layer3.1.bn2",
+                "config": {
+                    "bias": "(256)",
+                    "weight": "(256)",
+                    "layer_id": "2537708958384"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer3.1.conv2"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "2537710317864/Add0",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer1.1.bn2"
+                        ],
+                        [
+                            "2537710319936/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Add0"
+            },
+            {
+                "name": "layer4.0.downsample.1",
+                "config": {
+                    "bias": "(512)",
+                    "weight": "(512)",
+                    "layer_id": "2537708959728"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer4.0.downsample.0"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "layer4.0.conv2",
+                "config": {
+                    "layer_id": "2537708484088",
+                    "weight": "(512, 512, 3, 3)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537636719360/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "layer3.0.downsample.1",
+                "config": {
+                    "bias": "(256)",
+                    "weight": "(256)",
+                    "layer_id": "2537708971176"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer3.0.downsample.0"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "layer1.1.conv2",
+                "config": {
+                    "layer_id": "2537708880504",
+                    "weight": "(64, 64, 3, 3)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537710321056/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "layer1.1.bn1",
+                "config": {
+                    "bias": "(64)",
+                    "weight": "(64)",
+                    "layer_id": "2537708882520"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer1.1.conv1"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "layer3.0.bn2",
+                "config": {
+                    "bias": "(256)",
+                    "weight": "(256)",
+                    "layer_id": "2537708959168"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer3.0.conv2"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "2537710319936/Threshold1",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537655576616/Add0"
+                        ]
+                    ]
+                ],
+                "class_name": "Threshold1"
+            },
+            {
+                "name": "2537636932856/Add0",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer4.0.bn2"
+                        ],
+                        [
+                            "layer4.0.downsample.1"
+                        ]
+                    ]
+                ],
+                "class_name": "Add0"
+            },
+            {
+                "name": "layer3.1.conv2",
+                "config": {
+                    "layer_id": "2537708958328",
+                    "weight": "(256, 256, 3, 3)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537636828608/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "2537710167488/Add0",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer2.0.bn2"
+                        ],
+                        [
+                            "layer2.0.downsample.1"
+                        ]
+                    ]
+                ],
+                "class_name": "Add0"
+            },
+            {
+                "name": "layer2.1.bn1",
+                "config": {
+                    "bias": "(128)",
+                    "weight": "(128)",
+                    "layer_id": "2537708800152"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer2.1.conv1"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "layer2.0.bn2",
+                "config": {
+                    "bias": "(128)",
+                    "weight": "(128)",
+                    "layer_id": "2537708800656"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer2.0.conv2"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "layer3.1.bn1",
+                "config": {
+                    "bias": "(256)",
+                    "weight": "(256)",
+                    "layer_id": "2537708959560"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer3.1.conv1"
+                        ]
+                    ]
+                ],
+                "class_name": "CudnnBatchNorm"
+            },
+            {
+                "name": "2537655721880/MaxPool2DWithIndices",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537655560680/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "MaxPool2DWithIndices"
+            },
+            {
+                "name": "2537636746296/AdaptiveAvgPool2D",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537636747024/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "AdaptiveAvgPool2D"
+            },
+            {
+                "name": "2537655560680/Threshold1",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "bn1"
+                        ]
+                    ]
+                ],
+                "class_name": "Threshold1"
+            },
+            {
+                "name": "layer3.0.conv2",
+                "config": {
+                    "layer_id": "2537708959840",
+                    "weight": "(256, 256, 3, 3)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537636836968/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "layer3.1.conv1",
+                "config": {
+                    "layer_id": "2537708959672",
+                    "weight": "(256, 256, 3, 3)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537636829224/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            },
+            {
+                "name": "2537655720928/Threshold1",
+                "config": "None",
+                "inbound_nodes": [
+                    [
+                        [
+                            "layer1.0.bn1"
+                        ]
+                    ]
+                ],
+                "class_name": "Threshold1"
+            },
+            {
+                "name": "layer3.0.downsample.0",
+                "config": {
+                    "layer_id": "2537708972296",
+                    "weight": "(256, 128, 1, 1)"
+                },
+                "inbound_nodes": [
+                    [
+                        [
+                            "2537710244416/Threshold1"
+                        ]
+                    ]
+                ],
+                "class_name": "Convolution2D"
+            }
+        ],
+        "name": "vgg16"
+    },
+    "class_name": "Model"
+}

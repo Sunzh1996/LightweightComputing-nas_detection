@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>第一个 ECharts 实例</title>
+    <!-- 引入 echarts.js 以下两种方式都可以 -->
+    <script src="echarts.min.js"></script>
+    <!-- <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script> -->
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width:600px;height:400px;"></div>
+    <script type="text/javascript">
+
+        var myChart ;
+        var loss_data = [];
+        var index_data = [];
+
+        function buildChart(width, height){
+            // 基于准备好的dom，初始化echarts实例
+			document.getElementById('main').style.height = height +'px';
+            document.getElementById('main').style.width  = width + 'px'; 
+			
+			if (typeof(myChart)!="undefined"){ //清除旧实例
+				myChart.clear();
+				myChart.dispose();	
+			}
+            // 基于准备好的dom，初始化echarts实例
+            myChart = echarts.init(document.getElementById('main'));
+            // 指定图表的配置项和数据
+            var option = {
+                color: ['#003366', '#006699', '#4cabce', '#e5323e'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend: {
+                    data: ['baseline', 'compressed1', 'compressed2', 'compressed3']
+                },
+
+                xAxis: [
+                    {
+                        type: 'category',
+                        axisTick: {show: false},
+                        data: ['预处理', '卷积', '全连接积', '后处理', '其他']
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                series: [
+                    {
+                        name: 'baseline',
+                        type: 'bar',
+                        barGap: 0,
+                        data: [320, 332, 301, 334, 390]
+                    },
+                    {
+                        name: 'compressed1',
+                        type: 'bar',
+                        data: [220, 182, 191, 234, 290]
+                    },
+                    {
+                        name: 'compressed2',
+                        type: 'bar',
+                        data: [150, 232, 201, 154, 190]
+                    },
+                    {
+                        name: 'compressed3',
+                        type: 'bar',
+                        data: [98, 77, 101, 99, 40]
+                    }
+                ]
+            };
+            //window.alert(option.series[0]["data"])
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+
+            //500ms 定时器，更新数据
+            // setInterval(function () {
+            //     myChart.setOption({
+            //         xAxis:{
+            //             data: index_data
+            //         },
+            //         series: [{
+            //             data: loss_data
+            //         }]
+            //     });
+            //     }, 500);   
+        }
+
+    </script>
+</body>
+</html>

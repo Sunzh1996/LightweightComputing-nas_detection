@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>第一个 ECharts 实例</title>
+    <!-- 引入 echarts.js -->
+    <script src="echarts.min.js"></script>
+    <!-- <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script> -->
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+
+        var myChart ;
+        var loss_data = [];
+        var index_data = [];
+
+        function buildChart(width, height){
+            // 基于准备好的dom，初始化echarts实例
+			document.getElementById('main').style.height = height +'px';
+            document.getElementById('main').style.width  = width + 'px'; 
+			
+			if (typeof(myChart)!="undefined"){ //清除旧实例
+				myChart.clear();
+				myChart.dispose();	
+			}
+            myChart = echarts.init(document.getElementById('main'));
+
+            myChart.setOption({
+                tooltip: {
+                },
+                legend: {
+                    data:['处理时间分布'],
+                    show: true
+                },
+            series : [
+                {
+                    name: '处理时间分布',
+                    type: 'pie',    // 设置图表类型为饼图
+                    radius: '55%',  // 饼图的半径，外半径为可视区尺寸（容器高宽中较小一项）的 55% 长度。
+                    data:[          // 数据数组，name 为数据项名称，value 为数据项值
+                        {value:235, name:'预处理'},
+                        {value:274, name:'卷积处理'},
+                        {value:310, name:'全连接处理'},
+                        {value:335, name:'后处理'},
+                        {value:400, name:'其他'}
+                    ]
+                }
+            ]
+            })
+        }
+        
+ 
+
+    </script>
+</body>
+</html>
