@@ -30,36 +30,50 @@ def register_hook(model):
     seen = []
     hook_list = []
 
-    def traversal_layers(layer):
-        layer_children = list(layer.children())
-        for i in range(len(layer_children)):
-            if hasattr(layer_children[i], "weight"):
-            # if type(layer_children[i]) == nn.Conv2d:
-                ids = str(id(layer_children[i].weight)) + "-" + layer_children[i]._get_name()
-                if ids not in seen:
-                    seen.append(ids)
-                    hook_list.append(Hook(layer_children[i]))
-                else:
-                    print("duplicate")
-
-            elif type(layer_children[i]) == nn.Sequential:
-                for j in range(len(layer_children[i])):
-                    tmp_childs = list(layer_children[i][j].children())
-                    if len(tmp_childs) >0:
-                        traversal_layers(layer_children[i][j])
-                    else:
-                        child = layer_children[i][j]
-                        if hasattr(child, "weight"):
-                            ids = str(id(child.weight)) + "-" + child._get_name()
-                            if ids not in seen:
-                                seen.append(ids)
-                                hook_list.append(Hook(child))
-                            else:
-                                print("duplicate")
-
-    traversal_layers(model)    
-
+    for name, layer in list(model.named_modules()):
+        if hasattr(layer, "weight"):
+            ids = str(id(layer.weight)) + "-" + layer._get_name()
+            if ids not in seen:
+                seen.append(ids)
+                hook_list.append(Hook(layer))
+            else:
+                print("duplicate")     
     return hook_list
+
+# def register_hook(model):
+#     seen = []
+#     hook_list = []
+
+#     def traversal_layers(layer):
+#         layer_children = list(layer.children())
+#         for i in range(len(layer_children)):
+#             if hasattr(layer_children[i], "weight"):
+#             # if type(layer_children[i]) == nn.Conv2d:
+#                 ids = str(id(layer_children[i].weight)) + "-" + layer_children[i]._get_name()
+#                 if ids not in seen:
+#                     seen.append(ids)
+#                     hook_list.append(Hook(layer_children[i]))
+#                 else:
+#                     print("duplicate")
+
+#             elif type(layer_children[i]) == nn.Sequential:
+#                 for j in range(len(layer_children[i])):
+#                     tmp_childs = list(layer_children[i][j].children())
+#                     if len(tmp_childs) >0:
+#                         traversal_layers(layer_children[i][j])
+#                     else:
+#                         child = layer_children[i][j]
+#                         if hasattr(child, "weight"):
+#                             ids = str(id(child.weight)) + "-" + child._get_name()
+#                             if ids not in seen:
+#                                 seen.append(ids)
+#                                 hook_list.append(Hook(child))
+#                             else:
+#                                 print("duplicate")
+
+#     traversal_layers(model)    
+
+#     return hook_list
 
 
 def make_dot(var, params=None):
@@ -147,7 +161,7 @@ def prune_graph(graph):
 
     black_node_list = []
     white_node_list = []
-    #记录 bias weights等variable节点
+    #record bias and weights node which are "variable" 
     for i, node in enumerate(graph["nodes"]) :
         if node["class_name"] == "variable":
             black_node_list.append(node)
@@ -157,7 +171,7 @@ def prune_graph(graph):
     white_edge_list = []
     node_name_cache = {}
     
-    #处理有训练参数的节点(Conv2D BatchNorm) 更新 节点 name config
+    #process node that is trainable (Conv2D BatchNorm) and update "name" props
     for i, edge in enumerate(graph["edges"]) :
         flag = True
         for idx, black_node in enumerate(black_node_list):
@@ -182,7 +196,7 @@ def prune_graph(graph):
             white_edge_list.append(edge)
 
 
-    # update node
+    # update node name and config
     for i, node in enumerate(white_node_list):
         id = node["id"]
         if id in node_name_cache:
@@ -200,17 +214,17 @@ def prune_graph(graph):
                 white_node_list[i]["layer_id"] = node_name_cache[id]["layer_id"]
               
 
-    #更新节点名字，避免名字出现全是数字的情况
+    #update node name again, "name" props should be unique
     used_name = []
     for i, node in enumerate(white_node_list):
         name = node["name"]
 
-        if name in used_name: #避免出现重复
+        if name in used_name: #avoid duplicated name
             name += "1"
             white_node_list[i]["name"] = name 
         used_name.append(name)
 
-        if name.isdigit():
+        if name.isdigit(): #avoid digital name
             #update node name
             new_name = "{}/{}".format(name, node["class_name"])
             white_node_list[i]["name"] = new_name
@@ -220,7 +234,7 @@ def prune_graph(graph):
                     white_edge_list[k]["source"] = new_name
                 if name in edge["target"]:
                     white_edge_list[k]["target"] = new_name
-        else: #正常节点设置为 name
+        else: #
             id = node["id"]
             for k, edge in enumerate(white_edge_list):
                 if id in edge["source"]:

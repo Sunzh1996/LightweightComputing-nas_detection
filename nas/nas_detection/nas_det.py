@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import (QWidget, QMainWindow, QSlider, QLabel,
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
 sys.path.append("../")
+print(sys.path)
 from qtui.nas_ui import  *
 from tools.utils import *
 from nas_model_vis import plot_model
@@ -17,6 +18,13 @@ from quiver_engine.model_utils import register_hook
 import threading
 import numpy as np
 from torchvision import models
+
+import os.path as osp
+sys.path.append(osp.join(sys.path[0], '..'))
+import mmcv
+import models
+from mmdet.models import build_detector, detectors
+
 
 rootPath = os.path.abspath(os.path.dirname(os.getcwd()))
 htmlFolder = os.path.join(rootPath ,"../html","nas")
@@ -138,6 +146,10 @@ acc_mAP_list=['0.117', '0.186', '0.209', '0.225', '0.245', '0.254', '0.257', '0.
 infertime_list = [0.5671, 0.8545, 0.9193, 1.1581, 0.9614, 0.9224, 1.2183, 1.3629, 0.9755, 1.0109, 0.9835, 1.3884, 1.1824, 0.9641]
 
 
+config_file = './fna_retinanet_fpn_retrain.py'
+cfg = mmcv.Config.fromfile(config_file)
+cfg.model.pretrained = None
+model = build_detector(cfg.model, train_cfg=None, test_cfg=cfg.test_cfg)
 class modelVisTask(QThread):
     signalUpdateUi = pyqtSignal()  # 定义更新UI信号
 
@@ -146,8 +158,8 @@ class modelVisTask(QThread):
         self.signalUpdateUi.connect(mainW.modelVisLoad)
         self.sign = True
 
-        #self.model = get_model(dataset, model)
-        self.model = models.resnet18()
+        #self.model = models.resnet18()
+        self.model = model
 
         self.hook_list = register_hook(self.model)
 

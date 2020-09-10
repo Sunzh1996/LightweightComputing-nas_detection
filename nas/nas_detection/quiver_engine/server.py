@@ -25,6 +25,25 @@ from quiver_engine.model_utils import make_dot
 from quiver_engine.file_utils import list_img_files, save_layer_img
 from quiver_engine.vis_utils import save_layer_outputs
 
+import mmcv
+from mmdet.datasets import to_tensor
+from mmdet.datasets.transforms import ImageTransform
+def _prepare_data(img, img_transform, cfg, device='cuda:0'):
+    ori_shape = img.shape
+    img, img_shape, pad_shape, scale_factor = img_transform(
+        img,scale=(1333,800),flip=False,keep_ratio=True)
+        #scale=cfg.data.test.img_scale)
+        #keep_ratio=cfg.data.test.get('resize_keep_ratio', True))
+    img = to_tensor(img).to(device).unsqueeze(0)
+    img_meta = [
+        dict(
+            ori_shape=ori_shape,
+            img_shape=img_shape,
+            pad_shape=pad_shape,
+            scale_factor=scale_factor,
+            flip=False)
+    ]
+    return dict(img=[img], img_meta=[img_meta])
 
 def get_app(model, hooks, classes, top, input_size, html_base_dir, temp_folder='./tmp', input_folder='./', mean=None, std=None):
     '''
@@ -52,10 +71,19 @@ def get_app(model, hooks, classes, top, input_size, html_base_dir, temp_folder='
     x = torch.zeros(input_size, dtype=torch.float, requires_grad=False).cuda()
     model.cuda()
     model.eval()
-    out = model(x)
-    print(1)
+    #out = model(x)
+    #graph = make_dot(out, params=dict(model.named_parameters()))
 
-    graph = make_dot(out, params=dict(model.named_parameters()))
+    config_file = './fna_retinanet_fpn_retrain.py'
+    cfg = mmcv.Config.fromfile(config_file)
+    img_transform = ImageTransform(
+        size_divisor=cfg.data.test.size_divisor, **cfg.img_norm_cfg)
+    img=mmcv.imread('./data/Cat/0.jpg')
+
+    data = _prepare_data(img.astype(np.float32), img_transform, cfg, device='cuda:0')
+    out = model(return_loss=False, rescale=True, **data)
+    #print(out[0][0])
+    graph = make_dot(out[0][0], params = dict(model.named_parameters()))
     '''
         Static Routes
     '''
